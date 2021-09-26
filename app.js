@@ -1,10 +1,20 @@
 const express = require("express");
 const app = express();
+const exphbs = require("express-handlebars")
 
-app.get('/', function(req, res) {
-    res.send("lalala");
-})
+app.engine('hbs',exphbs({
+    defaultLayout: 'main',
+    extname: 'hbs'
+}))
+app.set('view engine', 'hbs');
+app.use(express.json());
+
+app.use(express.static('public'))
+
+const gisRouter = require('./routers/gisRouter.js');
+
+app.use('/', gisRouter);
 
 app.listen(3000, ()=>{
-    console.log("process is running");
+    console.log("WebGIS is running");
 })
