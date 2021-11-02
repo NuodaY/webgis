@@ -1,6 +1,6 @@
 var typhoonData = require("../models/typhoons.json")
 
-// get all cafes
+// 根据台风数据显示台风路径
 const displayGIS = function(req, res) {
     var LatLngs = {}
     for(var typhoonID in typhoonData){
@@ -15,9 +15,10 @@ const displayGIS = function(req, res) {
         LatLngs[typhoonID] = typhonePosList
 
     }
+    console.log("Latlngs(backend->frontend):")
     console.log(LatLngs)
     res.render("index", {"Latlngs": JSON.stringify(LatLngs)})
 }
 
-// Export the functions
+// 导出函数
 module.exports = {displayGIS}
