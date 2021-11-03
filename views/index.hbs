@@ -15,6 +15,12 @@
         <div id="map" style="width:100%;height: 600px;"></div>
         <p hidden id="points">{{Latlngs}}</p>
 
+        <form action="/typhoonDetails" method="post">
+            <label for="typhoonId">Quantity</label>
+            <input type="number" name="id" id='typhoonId'>
+            <input type="submit" name="查看" id='typhoonId'>
+        </form>
+
         <script> 
             // 地图被点击
             function mapClicked(e){
@@ -46,6 +52,11 @@
             };
             L.control.layers(baseLayers).addTo(map);
 
+            var typhoonIcon = L.icon({
+                iconUrl: "http://pic.90sjimg.com/design/03/57/50/04/5d511012e7ae9.png!/fw/325/quality/90/unsharp/true/compress/true/canvas/325x322a0a0/cvscolor/FFFFFFFF",
+                iconSize: [40, 40]
+            })
+
             // 获取台风经纬数据
             var Latlngs = document.getElementById("points").innerHTML
             Latlngs = JSON.parse(Latlngs)
@@ -54,7 +65,7 @@
             // 遍历
             var i = 0;
             for(var typhoonID in Latlngs){
-                marker = L.marker(Latlngs[typhoonID][0]).addTo(map);
+                marker = L.marker(Latlngs[typhoonID][0], {icon: typhoonIcon}).addTo(map);
                 marker.bindPopup("typhoone ID:" + LatlngKeys[i]).openPopup();
                 polyline = L.polyline(Latlngs[typhoonID], { color: 'blue' }).addTo(map)
                 i += 1;
