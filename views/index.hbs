@@ -6,27 +6,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="https://cdn.bootcss.com/leaflet/1.3.4/leaflet.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
         <script src="https://cdn.bootcss.com/leaflet/1.3.4/leaflet.js"></script>
     </head>
     
     <body>
         <h2>YND's First WebGIS</h2>
-        <a href="https://github.com/NuodaY/webgis">作品github页</a>
+
+        <ul>
+            <li><a href="/">主页</a></li>
+            <li><a href="/measure" target="_blank">测量距离</a></li>
+            <li><a href="/about">关于</a></li>
+            <li><a href="https://github.com/NuodaY/webgis">Github页</a></li>
+            <li>
+                <p>查询台风</p>
+
+                <form action="/typhoonDetails" method="post">
+                    <input type="text" name="id" id='typhoonId'>
+                    <input type="submit" value="查看" id='typhoonId'>
+                </form>
+
+            </li>
+        </ul>
+        
         <div id="map" style="width:100%;height: 600px;"></div>
         <p hidden id="points">{{Latlngs}}</p>
-
-        <form action="/typhoonDetails" method="post">
-            <label for="typhoonId">Quantity</label>
-            <input type="number" name="id" id='typhoonId'>
-            <input type="submit" name="查看" id='typhoonId'>
-        </form>
 
         <script> 
             // 地图被点击
             function mapClicked(e){
                 popup
                     .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .setContent("此处经、纬度分别为" + e.latlng.toString())
                     .openOn(map);
             }
             // mapbox 地图服务URL

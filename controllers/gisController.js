@@ -1,23 +1,33 @@
-var typhoonData = require("../models/typhoons.json")
+var typhoonData = require("../models/typhoons.json");
 
 // 根据台风数据显示台风路径
 const displayGIS = function(req, res) {
-    var LatLngs = {}
+    var LatLngs = {};
     for(var typhoonID in typhoonData){
-        var typhonePosList = []
-        var typhoonInfo = typhoonData[typhoonID]
-        var typhoonPos = typhoonInfo["NE_Pos"]
+        var typhonePosList = [];
+        var typhoonInfo = typhoonData[typhoonID];
+        var typhoonPos = typhoonInfo["NE_Pos"];
 
         for(var pos in typhoonPos){
-            typhonePosList.push([typhoonPos[pos].N, typhoonPos[pos].E])
+            typhonePosList.push([typhoonPos[pos].N, typhoonPos[pos].E]);
         }
 
-        LatLngs[typhoonID] = typhonePosList
+        LatLngs[typhoonID] = typhonePosList;
 
     }
-    console.log("Latlngs(backend->frontend):")
-    console.log(LatLngs)
-    res.render("index", {"Latlngs": JSON.stringify(LatLngs)})
+    console.log("Latlngs(backend->frontend):");
+    console.log(LatLngs);
+    return res.render("index", {"Latlngs": JSON.stringify(LatLngs)});
+}
+
+// 要求输入两点经纬
+const measureDistance = function(req, res) {
+    return res.render("measure");
+}
+
+// 关于
+const displayAbout = function(req, res) {
+    return res.render("about");
 }
 
 // 根据台风id显示台风详细信息
@@ -34,5 +44,13 @@ const displayTyphoonDetails = function(req, res) {
     return res.send("查无此台风！");
 }
 
+// 显示计算结果
+const displayResults = function(req, res) {
+    var pointA = req.body.pta;
+    var pointB = req.body.ptb;
+    var result = 5;
+    return res.render("results", {"result": result});
+}
+
 // 导出函数
-module.exports = {displayGIS, displayTyphoonDetails};
+module.exports = {displayGIS, measureDistance, displayAbout, displayTyphoonDetails, displayResults};
