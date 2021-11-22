@@ -33,18 +33,30 @@ const displayAbout = function(req, res) {
     return res.render("about");
 }
 
-// 根据台风id显示台风详细信息
+// 根据台风id或name显示台风详细信息
 const displayTyphoonDetails = function(req, res) {
-    var id = req.body.id;
-    for(var typhoonID in typhoonData){
-        if(typhoonID == id){
-            var typhoonInfo = typhoonData[typhoonID];
-            var zh_name = typhoonInfo["zh_name"];
-            var en_name = typhoonInfo["en_name"];
-            return res.send("ID"+id+"\n英文"+en_name);
+    console.log(req.body);
+    if(req.body.id){
+        var id = req.body.id;
+        for (var typhoonID in typhoonData) {
+            if (typhoonID == id) {
+                var typhoonInfo = typhoonData[typhoonID];
+                var zh_name = typhoonInfo["zh_name"];
+                var en_name = typhoonInfo["en_name"];
+                return res.send("ID: " + id + "\nName: " + en_name);
+            }
         }
     }
-    return res.send("Cannot find typhoons with this ID!");
+    else if(req.body.name){
+        var name = req.body.name;
+        for(var typhoonID in typhoonData){
+            if(typhoonData[typhoonID]["en_name"] == name){
+                return res.send("ID: " + typhoonID + "\nName: " + name);
+            }
+        }
+    }
+    
+    return res.send("Cannot find typhoons with this ID or name!");
 }
 
 // 显示计算结果
@@ -55,6 +67,10 @@ const displayResults = function(req, res) {
     var pointBY = req.body.ptby;
     var result = calculateDistance(pointAX, pointAY, pointBX, pointBY);
     return res.render("results", {"result": result});
+}
+
+const displayLookUpPage = function(req, res) {
+    return res.render("lookup");
 }
 
 const calculateDistance = function(pointAX, pointAY, pointBX, pointBY){
@@ -69,4 +85,4 @@ const calculateDistance = function(pointAX, pointAY, pointBX, pointBY){
 }
 
 // 导出函数
-module.exports = {displayGIS, measureDistance, displayAbout, displayTyphoonDetails, displayResults};
+module.exports = {displayGIS, measureDistance, displayAbout, displayTyphoonDetails, displayResults, displayLookUpPage};

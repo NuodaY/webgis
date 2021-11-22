@@ -11,23 +11,15 @@
     </head>
     
     <body>
-        <h2>YND's First WebGIS</h2>
+        <h2>Typhoon WebGIS Demo</h2>
 
         <ul>
             <li><a href="/">HomePage</a></li>
             <li><a href="/measure" target="_blank">Measure Distance</a></li>
             <li><a href="#" onclick="showBar()" style="text-decoration:underline">Fast Locate</a></li>
-            <li><a href="/about" target="_blank">About</a></li>
-            <li><a href="https://github.com/NuodaY/webgis" target="_blank">Github Page</a></li>
-            <li>
-                <p>Look up typhoons</p>
-
-                <form target="_blank" action="/typhoonDetails" method="post">
-                    <input type="text" name="id" id='typhoonId'>
-                    <input type="submit" value="Search!" id='typhoonId'>
-                </form>
-
-            </li>
+            <li class="right"><a href="/about" target="_blank">About</a></li>
+            <li class="right"><a href="https://github.com/NuodaY/webgis" target="_blank">Github Page</a></li>
+            <li><a href="/lookUpTyphoon">Look up typhoons</a></li>
         </ul>
         
         <div id="side-bar" style="display:none">
@@ -101,7 +93,6 @@
             // 获取台风经纬数据
             var Latlngs = document.getElementById("points").innerHTML;
             var Names = document.getElementById("names").innerHTML;
-            alert(Names)
             Latlngs = JSON.parse(Latlngs);
             Names = Names.split(",");
             // 获取数据键

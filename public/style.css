@@ -33,3 +33,9 @@ input{
 li a:hover {
     background-color: #111;
 }
+
+.right{
+    display: block;
+    text-align: center;
+    float: right;
+}
