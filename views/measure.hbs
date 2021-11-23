@@ -5,18 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Measure Distance between 2 points</title>
+    <h2 style="text-align: center">Measure Distance between 2 points</h2>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <form action="/showResults" method="post">
-        <label>第一个点经度：</label>
-        <input type="text" name="ptax">
-        <label>第一个点纬度：</label>
-        <input type="text" name="ptay">
-        <label>第二个点经度：</label>
-        <input type="text" name="ptbx">
-        <label>第二个点纬度：</label>
-        <input type="text" name="ptby">
-        <input type="submit" value="计算距离">
-    </form>
+
+    <div class="results">
+    
+        <form action="/showResults" method="post">
+    
+            <label><strong>Longitude</strong> for point A：</label>
+            <input type="text" name="ptax" size="10"><br>
+            <label><strong>Latitude</strong> for point A：</label>
+            <input type="text" name="ptay" size="10"><br>
+            <br>
+    
+            <label><strong>Longitude</strong> for point B：</label>
+            <input type="text" name="ptbx" size="10"><br>
+            <label><strong>Latitude</strong> for point B：</label>
+            <input type="text" name="ptby" size="10"><br>
+            <br>
+    
+            <input type="submit" value="Calculate distance!">
+    
+        </form>
+    
+    </div>
+
 </body>
 </html>

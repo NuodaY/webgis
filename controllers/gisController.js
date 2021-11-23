@@ -51,9 +51,7 @@ const displayTyphoonDetails = function(req, res) {
         for (var typhoonID in typhoonData) {
             if (typhoonID == id) {
                 var typhoonInfo = typhoonData[typhoonID];
-                var zh_name = typhoonInfo["zh_name"];
-                var en_name = typhoonInfo["en_name"];
-                return res.send("ID: " + id + "\nName: " + en_name);
+                return res.render("details", {"Pos": typhoonInfo.NE_Pos, "Name": typhoonInfo.en_name, "ID": id});
             }
         }
     }
@@ -61,7 +59,8 @@ const displayTyphoonDetails = function(req, res) {
         var name = req.body.name;
         for(var typhoonID in typhoonData){
             if(typhoonData[typhoonID]["en_name"] == name){
-                return res.send("ID: " + typhoonID + "\nName: " + name);
+                var typhoonInfo = typhoonData[typhoonID];
+                return res.render("details", {"Pos": typhoonInfo.NE_Pos, "Name": typhoonInfo.en_name, "ID": typhoonID});
             }
         }
     }

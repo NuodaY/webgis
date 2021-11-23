@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="details">
+
+        <h3>{{Name}}</h3>
+        <h4>{{ID}}</h4>
+
+        <table class="details-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Northings</th>
+                    <th>Eastings</th>
+                    <th>Wind Speed</th>
+                </tr>
+            </thead>
+
+            {{#each Pos}}
+                <tr>
+                    <td data-label="Date">{{@key}}-2021</td>
+                    <td data-label="Northings">{{this.N}} °</td>
+                    <td data-label="Eastings">{{this.E}} °</td>
+                    <td data-label="Wind Speed">{{this.speed}} m/s</td>
+                </tr>
+            {{/each}}
+
+        </table>
+
+    </div>
+
+    <a href="/">Back</a>
+
+</body>
+</html>

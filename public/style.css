@@ -45,3 +45,36 @@ li a:hover {
     text-align: center;
     background-color: rgb(126, 117, 117);
 }
+
+.double-forms{
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.results{
+    margin: 0;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.details-table{
+    border-spacing: 20px;
+    border: 1px solid black;
+    text-align: center;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.details{
+    text-align: center;
+}
