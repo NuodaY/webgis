@@ -39,3 +39,9 @@ li a:hover {
     text-align: center;
     float: right;
 }
+
+.side-bar-element{
+    display: block;
+    text-align: center;
+    background-color: rgb(126, 117, 117);
+}

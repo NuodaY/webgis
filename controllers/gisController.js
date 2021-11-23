@@ -1,9 +1,11 @@
 var typhoonData = require("../models/typhoons.json");
+var citiesData = require("../models/cities.json");
 
 // 根据台风数据显示台风路径
 const displayGIS = function(req, res) {
     var LatLngs = {};
-    var Names = [];
+    var names = [];
+    var colours = [];
     for(var typhoonID in typhoonData){
         var typhonePosList = [];
         var typhoonInfo = typhoonData[typhoonID];
@@ -14,13 +16,21 @@ const displayGIS = function(req, res) {
         }
 
         LatLngs[typhoonID] = typhonePosList;
-        Names.push(typhoonInfo["en_name"]);
-
+        names.push(typhoonInfo["en_name"]);
+        colours.push(typhoonInfo["colour"]);
     }
     console.log("Latlngs(backend->frontend):");
     console.log(LatLngs);
-    console.log(Names);
-    return res.render("index", {"Latlngs": JSON.stringify(LatLngs), "Name": Names});
+    console.log(names);
+    console.log(citiesData);
+    console.log(colours);
+    return res.render("index", {
+        "Latlngs": JSON.stringify(LatLngs), 
+        "Name": names, 
+        "Cities": citiesData,
+        "StrCities": JSON.stringify(citiesData),
+        "Colour": colours
+    });
 }
 
 // 要求输入两点经纬

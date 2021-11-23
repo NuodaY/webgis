@@ -24,17 +24,18 @@
         
         <div id="side-bar" style="display:none">
             <button onclick="closeBar()">Close</button>
-            <p>New York</p>
-            <p>Tokyo</p>
-            <p>London</p>
-            <p>Paris</p>
-            <p>Hong Kong</p>
-            <p>Shanghai</p>
+            {{#each Cities}}
+            <li class="side-bar-element">
+                <p class="cityName" onclick="reLocate(this.innerHTML)">{{this.en_name}}</p>
+            </li>
+            {{/each}}
         </div>
 
         <div id="map" style="width:100%;height: 600px;"></div>
         <p hidden id="points">{{Latlngs}}</p>
         <p hidden id="names">{{Name}}</p>
+        <p hidden id="cities">{{StrCities}}</p>
+        <p hidden id="colours">{{Colour}}</p>
 
         <script> 
             // 地图被点击，显示经纬度
@@ -54,7 +55,6 @@
                 else{
                     closeBar();
                 }
-                
             }
 
             // 关闭侧边栏
@@ -63,17 +63,30 @@
                 isClicked = 0;
             }
 
-            // mapbox 地图服务URL
-            var mapboxUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-            var mapAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">YND的首个网络地信系统' + 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+            function reLocate(cityName){
+                var allCities = document.getElementById("cities").innerHTML;
+                allCities = JSON.parse(allCities);
+                for(var city in allCities){
+                    if(allCities[city].en_name == cityName){
+                        mapCenter[0] = allCities[city].N;
+                        mapCenter[1] = allCities[city].E;
+                        map.flyTo(mapCenter, 6);
+                        dest = L.marker(mapCenter, {icon: destIcon}).addTo(map);
+                    }
+                }
+            }
+
             // 定义卫星图层
+            var mapboxUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
             var satellite = L.tileLayer(mapboxUrl, { id: 'mapbox.satellite' });
             var isClicked = 0;
+            var mapCenter = [25, 125];
+            var dest;
 
             // 创建地图实例
             var map = L.map('map', {
-                center: [30, 120],
-                zoom: 5,
+                center: mapCenter,
+                zoom: 4,
                 // 展示卫星地图
                 layers: satellite
             });
@@ -90,19 +103,27 @@
                 iconSize: [40, 40]
             })
 
+            var destIcon = L.icon({
+                iconUrl: "https://leafletjs.com/examples/custom-icons/leaf-red.png",
+                iconSize: [20, 50]
+            })
+
             // 获取台风经纬数据
             var Latlngs = document.getElementById("points").innerHTML;
             var Names = document.getElementById("names").innerHTML;
+            var Colours = document.getElementById("colours").innerHTML;
+
             Latlngs = JSON.parse(Latlngs);
             Names = Names.split(",");
+            Colours = Colours.split(",");
             // 获取数据键
             var LatlngKeys = Object.keys(Latlngs);
             // 遍历
             var i = 0;
             for(var typhoonID in Latlngs){
                 marker = L.marker(Latlngs[typhoonID][0], {icon: typhoonIcon}).addTo(map);
+                polyline = L.polyline(Latlngs[typhoonID], { color: Colours[i] }).addTo(map);
                 marker.bindPopup("Typhoone ID: " + LatlngKeys[i] + "\nName: " + Names[i]).openPopup();
-                polyline = L.polyline(Latlngs[typhoonID], { color: 'blue' }).addTo(map)
                 i += 1;
             }
 
