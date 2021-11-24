@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars")
+const port = 3000||process.env.PORT;
 
 app.engine('hbs',exphbs({
     defaultLayout: 'main',
@@ -15,6 +16,6 @@ const gisRouter = require('./routers/gisRouter.js');
 
 app.use('/', gisRouter);
 
-app.listen(3000 || process.env.PORT, ()=>{
-    console.log("WebGIS is running");
+app.listen(port, ()=>{
+    console.log("WebGIS is running at " + port);
 })
