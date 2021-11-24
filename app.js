@@ -15,6 +15,6 @@ const gisRouter = require('./routers/gisRouter.js');
 
 app.use('/', gisRouter);
 
-app.listen(3000, ()=>{
+app.listen(3000 || process.env.PORT, ()=>{
     console.log("WebGIS is running");
 })
