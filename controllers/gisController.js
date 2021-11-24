@@ -58,7 +58,7 @@ const displayTyphoonDetails = function(req, res) {
     else if(req.body.name){
         var name = req.body.name;
         for(var typhoonID in typhoonData){
-            if(typhoonData[typhoonID]["en_name"] == name){
+            if(typhoonData[typhoonID]["en_name"].toLowerCase() == name.toLowerCase()){
                 var typhoonInfo = typhoonData[typhoonID];
                 return res.render("details", {"Pos": typhoonInfo.NE_Pos, "Name": typhoonInfo.en_name, "ID": typhoonID});
             }

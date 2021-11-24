@@ -42,7 +42,7 @@
             function mapClicked(e){
                 popup
                     .setLatLng(e.latlng)
-                    .setContent("N: " + e.latlng.lng.toFixed(2) + " E: " + e.latlng.lat.toFixed(2))
+                    .setContent("E: " + e.latlng.lng.toFixed(2) + " N: " + e.latlng.lat.toFixed(2))
                     .openOn(map);
             }
 
