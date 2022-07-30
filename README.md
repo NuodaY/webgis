@@ -1,3 +1,3 @@
 # webgis
 Nuoda's WebGIS project.
-Still under development.
+No longer updates.
