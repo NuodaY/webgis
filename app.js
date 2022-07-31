@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const exphbs = require("express-handlebars")
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.engine('hbs',exphbs({
     defaultLayout: 'main',
