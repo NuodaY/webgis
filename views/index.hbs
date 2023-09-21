@@ -77,8 +77,10 @@
             }
 
             // 定义卫星图层
-            var mapboxUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-            var satellite = L.tileLayer(mapboxUrl, { id: 'mapbox.satellite' });
+            var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            });
             var isClicked = 0;
             var mapCenter = [25, 125];
             var dest;
@@ -88,13 +90,13 @@
                 center: mapCenter,
                 zoom: 4,
                 // 展示卫星地图
-                layers: satellite
+                layers: osm
             });
             
             // 通过layer control来实现图层切换UI
             // https://leafletjs.com/examples/layers-control/
             var baseLayers = {
-                "Satellite": satellite
+                "Satellite": osm
             };
             L.control.layers(baseLayers).addTo(map);
 
